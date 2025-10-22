@@ -27,7 +27,7 @@
             <option value="{{$category->category}}">{{$category->category}}</option>
             @endforeach
         </select> <br><br>
-        <input type="submit" name="submit" value="Add Product">
+        <input type="submit" name="submit" value="Update Product">
     </form>
 </div>
 @endsection

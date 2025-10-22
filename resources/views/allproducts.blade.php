@@ -1,10 +1,10 @@
 @extends('maindesign')
 
-@section('index')
+@section('allproducts')
 <div class="container">
     <div class="heading_container heading_center">
         <h2>
-            Latest Products
+            All Products
         </h2>
     </div>
     <div class="row">
@@ -37,10 +37,9 @@
         @endforeach
     </div>
     <div class="btn-box">
-        <a href="{{route('viewallproducts')}}">
-            View All Products
+        <a href="{{route('index')}}">
+            Latest Products
         </a>
     </div>
 </div>
-
 @endsection
