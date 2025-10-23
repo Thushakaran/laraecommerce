@@ -9,7 +9,7 @@
     @endif
 
     <a href="{{ route('index') }}" style="display:inline-block; margin-bottom:20px; color:#e74c3c; text-decoration:none; font-weight:500;">
-        ← Back to Shop
+        ← Back
     </a>
     <div class="heading_container heading_center">
         <h2>Product Details</h2>

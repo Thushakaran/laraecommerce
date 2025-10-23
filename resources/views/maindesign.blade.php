@@ -89,8 +89,8 @@
                             </span>
                         </a>
                         @endif
-                        <a href="">
-                            <i class="fa fa-shopping-bag" aria-hidden="true"></i>
+                        <a href="{{route('cardproducts')}}">
+                            <i class="fa fa-shopping-bag" aria-hidden="true">{{$count}}</i>
                         </a>
                         <form class="form-inline ">
                             <button class="btn nav_search-btn" type="submit">
@@ -150,6 +150,7 @@
         @yield('index')
         @yield('product_details')
         @yield('allproducts')
+        @yield('view_cart_products')
     </section>
 
     <!-- end shop section -->
