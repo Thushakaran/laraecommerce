@@ -47,10 +47,19 @@
                             @csrf
 
                             <x-responsive-nav-link :href="route('logout')"
-                                onclick="event.preventDefault();
-                                        this.closest('form').submit();">
+                                onclick="event.preventDefault(); this.closest('form').submit();"
+                                style="display: flex; align-items: center; gap: 6px;">
+
+                                <!-- Logout Icon (Heroicon) -->
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                    stroke-width="1.5" stroke="currentColor" style="width: 18px; height: 18px;">
+                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                        d="M15.75 9V5.25A2.25 2.25 0 0013.5 3h-6A2.25 2.25 0 005.25 5.25v13.5A2.25 2.25 0 007.5 21h6a2.25 2.25 0 002.25-2.25V15M18 12h-9m9 0l-3-3m3 3l-3 3" />
+                                </svg>
+
                                 {{ __('Log Out') }}
                             </x-responsive-nav-link>
+
                         </form>
                     </div>
                 </div>
@@ -81,7 +90,7 @@
                     <ul id="exampledropdownDropdown" class="collapse list-unstyled ">
                         <li><a href="{{route('admin.addproduct')}}">Add Product</a></li>
                         <li><a href="{{route('admin.viewproduct')}}">View Product</a></li>
-                        <li><a href="#">View Order</a></li>
+                        <li><a href="{{route('admin.vieworders')}}">View Orders</a></li>
                     </ul>
                 </li>
             </ul>
@@ -103,6 +112,8 @@
                 @yield('update_category')
 
                 @yield('add_product')
+
+                @yield('view_orders')
             </section>
 
             <footer class="footer">
