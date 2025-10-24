@@ -38,6 +38,7 @@ Route::middleware('auth', 'admin')->group(function () {
     Route::post('/search_product', [AdminController::class, 'searchProduct'])->name('admin.searchproduct');
     Route::get('/view_orders', [AdminController::class, 'viewOrders'])->name('admin.vieworders');
     Route::post('/change_status/{id}', [AdminController::class, 'changeStatus'])->name('admin.changestatus');
+    Route::get('/download_pdf/{id}', [AdminController::class, 'downloadpdf'])->name('admin.downloadpdf');
 });
 
 require __DIR__ . '/auth.php';

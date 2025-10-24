@@ -11,6 +11,7 @@
             <th style="padding:12px; text-align: Left; border-bottom:1px solid #ddd">Price</th>
             <th style="padding:12px; text-align: Left; border-bottom:1px solid #ddd">Image</th>
             <th style="padding:12px; text-align: Left; border-bottom:1px solid #ddd">Status</th>
+            <th style="padding:12px; text-align: Left; border-bottom:1px solid #ddd">Action</th>
         </tr>
     </thead>
     <tbody>
@@ -39,6 +40,9 @@
                         onclick="return confirm('Are You Sure?')"
                         style="background-color: #007bff; color: white; border: none; border-radius: 4px; padding: 6px 12px; cursor: pointer;">
                 </form>
+            </td>
+            <td style="padding: 12px;">
+                <a class="btn btn-primary" href="{{route('admin.downloadpdf', $order->id)}}">Download PDF</a>
             </td>
         </tr>
         @endforeach
