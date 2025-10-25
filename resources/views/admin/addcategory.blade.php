@@ -1,5 +1,15 @@
 @extends('admin.maindesign')
 
+@section('page-title', 'Add Category')
+@section('breadcrumb')
+<li class="breadcrumb-item active">Add Category</li>
+@endsection
+@section('page-actions')
+<a href="{{route('admin.viewcategory')}}" class="btn-action btn-secondary-action">
+    <i class="fa fa-list"></i> View Categories
+</a>
+@endsection
+
 @section('add_category')
 
 @if(session('category_message') )

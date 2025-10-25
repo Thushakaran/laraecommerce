@@ -1,6 +1,6 @@
 @extends('admin.maindesign')
 
-<base href="/public">@section('update_category')
+@section('update_category')
 
 @if(session('categoryupdated_message') )
 <div style="background-color: blue; border: 1px solid #34d399; color: white; padding: 12px 16px; margin-bottom: 16px;">

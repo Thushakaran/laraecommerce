@@ -32,6 +32,23 @@
                         </span>
                     </div>
                 </a>
+                {{-- Add to Cart Form --}}
+                <form action="{{ route('addtocard', $product->id) }}" method="POST" style="margin-top: 10px; text-align:center;">
+                    @csrf
+                    <input type="hidden" name="quantity" value="1">
+                    <button type="submit" class="btn btn-primary"
+                        style="
+                            background-color: #f7444e;
+                            color: #fff;
+                            border: none;
+                            padding: 8px 14px;
+                            border-radius: 15px;
+                            font-weight: 500;
+                            transition: 0.3s;
+                            cursor: pointer;">
+                        Add to Cart
+                    </button>
+                </form>
             </div>
         </div>
         @endforeach

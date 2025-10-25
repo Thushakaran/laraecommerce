@@ -1,5 +1,5 @@
 @extends('maindesign')
-
+<base href="/public">
 @section('view_cart_products')
 <div class="container">
     <a href="{{ route('index') }}" style="display:inline-block; margin-bottom:20px; color:#e74c3c; text-decoration:none; font-weight:500;">
@@ -19,6 +19,7 @@
             $price = 0;
             @endphp
 
+            @if(isset($cart) && $cart->count() > 0)
             @foreach($cart as $cart_product)
             <tr style="border-bottom: 1px solid #ddd;">
                 <td style="padding: 12px;">{{$cart_product->product->product_title}}</td>
@@ -34,6 +35,11 @@
             @endphp
 
             @endforeach
+            @else
+            <tr>
+                <td colspan="4" style="text-align: center; padding: 20px;">Your cart is empty</td>
+            </tr>
+            @endif
             <br><br>
             <tr style="border-bottom: 1px solid #ddd; background-color: gray;">
                 <td style="padding: 12px;">Total</td>
@@ -59,6 +65,12 @@
         <input class="btn btn-primary" type="submit" name="submit" value="Confirm Order"
             style="padding: 10px; background-color: #007bff; color: white; border: none; border-radius: 5px; cursor: pointer;">
     </form>
+
+    <a href="{{route('stripe', $price)}}"
+        class="btn btn-danger"
+        style="background-color:#e74c3c; border:none;">
+        Pay Now
+    </a>
 
 </div>
 @endsection

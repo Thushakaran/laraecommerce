@@ -1,6 +1,6 @@
 @extends('admin.maindesign')
 
-@section('view_category')
+@section('view_product')
 @if(session('product_delete_message') )
 <div style="margin-bottom: 10px; color: black; background-color:orangered;padding: 12px 16px;">
     {{session('product_delete_message')}};

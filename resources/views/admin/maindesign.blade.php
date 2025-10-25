@@ -22,6 +22,150 @@
     <link rel="stylesheet" href="admin/css/custom.css">
     <!-- Favicon-->
     <link rel="shortcut icon" href="admin/img/favicon.ico">
+
+    <!-- Custom Admin Navigation Styles -->
+    <style>
+        #sidebar {
+            background: #2c3e50;
+        }
+
+        #sidebar .heading {
+            color: #ecf0f1;
+            font-weight: 600;
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin: 20px 0 10px 0;
+            padding: 0 20px;
+        }
+
+        #sidebar ul li a {
+            color: #bdc3c7;
+            padding: 12px 20px;
+            display: block;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            border-radius: 0;
+        }
+
+        #sidebar ul li a:hover {
+            background: #34495e;
+            color: #ecf0f1;
+            padding-left: 25px;
+        }
+
+        #sidebar ul li.active a {
+            background: #3498db;
+            color: white;
+        }
+
+        #sidebar ul li ul li a {
+            padding-left: 40px;
+            font-size: 13px;
+        }
+
+        #sidebar ul li ul li a:hover {
+            padding-left: 45px;
+        }
+
+        .sidebar-header {
+            background: #34495e;
+            padding: 20px;
+            border-bottom: 1px solid #2c3e50;
+        }
+
+        .sidebar-header .title h1 {
+            color: #ecf0f1;
+            margin: 0;
+        }
+
+        .sidebar-header .title p {
+            color: #bdc3c7;
+            margin: 0;
+            font-size: 12px;
+        }
+
+        .fa-chevron-down {
+            transition: transform 0.3s ease;
+        }
+
+        .collapsed .fa-chevron-down {
+            transform: rotate(-90deg);
+        }
+
+        .header {
+            background: #fff;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .logout {
+            background: #e74c3c;
+            color: white;
+            padding: 8px 15px;
+            border-radius: 5px;
+            transition: all 0.3s ease;
+        }
+
+        .logout:hover {
+            background: #c0392b;
+        }
+
+        .breadcrumb {
+            background: transparent;
+            padding: 0;
+            margin: 5px 0 0 0;
+            font-size: 14px;
+        }
+
+        .breadcrumb-item a {
+            color: #6c757d;
+            text-decoration: none;
+        }
+
+        .breadcrumb-item a:hover {
+            color: #3498db;
+        }
+
+        .breadcrumb-item.active {
+            color: #495057;
+        }
+
+        .page-actions {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+
+        .btn-action {
+            padding: 6px 12px;
+            font-size: 14px;
+            border-radius: 4px;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .btn-primary-action {
+            background: #3498db;
+            color: white;
+            border: 1px solid #3498db;
+        }
+
+        .btn-primary-action:hover {
+            background: #2980b9;
+            color: white;
+        }
+
+        .btn-secondary-action {
+            background: #95a5a6;
+            color: white;
+            border: 1px solid #95a5a6;
+        }
+
+        .btn-secondary-action:hover {
+            background: #7f8c8d;
+            color: white;
+        }
+    </style>
     <!-- Tweaks for older IEs--><!--[if lt IE 9]>
         <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
         <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script><![endif]-->
@@ -77,21 +221,59 @@
                     <p>E-Commerce</p>
                 </div>
             </div>
-            <!-- Sidebar Navidation Menus--><span class="heading">Main</span>
+            <!-- Sidebar Navigation Menus -->
+            <span class="heading">Dashboard</span>
             <ul class="list-unstyled">
-                <li class="active"><a href="index.html"> <i class="icon-home"></i>Home </a></li>
-                <li><a href="#exampledropdownDropdown" aria-expanded="false" data-toggle="collapse"> <i class="icon-windows"></i>Category </a>
-                    <ul id="exampledropdownDropdown" class="collapse list-unstyled ">
-                        <li><a href="{{route('admin.addcategory')}}">Add Category</a></li>
-                        <li><a href="{{route('admin.viewcategory')}}">View Category</a></li>
+                <li class="{{ request()->routeIs('dashboard') ? 'active' : '' }}">
+                    <a href="{{route('dashboard')}}">
+                        <i class="icon-home"></i> Dashboard
+                    </a>
+                </li>
+            </ul>
+
+            <span class="heading">Management</span>
+            <ul class="list-unstyled">
+                <li>
+                    <a href="#categoryDropdown" aria-expanded="false" data-toggle="collapse">
+                        <i class="icon-tag"></i> Categories
+                        <i class="fa fa-chevron-down float-right"></i>
+                    </a>
+                    <ul id="categoryDropdown" class="collapse list-unstyled">
+                        <li><a href="{{route('admin.addcategory')}}">
+                                <i class="fa fa-plus"></i> Add Category
+                            </a></li>
+                        <li><a href="{{route('admin.viewcategory')}}">
+                                <i class="fa fa-list"></i> View Categories
+                            </a></li>
                     </ul>
                 </li>
-                <li><a href="#exampledropdownDropdown" aria-expanded="false" data-toggle="collapse"> <i class="icon-windows"></i>Product</a>
-                    <ul id="exampledropdownDropdown" class="collapse list-unstyled ">
-                        <li><a href="{{route('admin.addproduct')}}">Add Product</a></li>
-                        <li><a href="{{route('admin.viewproduct')}}">View Product</a></li>
-                        <li><a href="{{route('admin.vieworders')}}">View Orders</a></li>
+                <li>
+                    <a href="#productDropdown" aria-expanded="false" data-toggle="collapse">
+                        <i class="icon-bag"></i> Products
+                        <i class="fa fa-chevron-down float-right"></i>
+                    </a>
+                    <ul id="productDropdown" class="collapse list-unstyled">
+                        <li><a href="{{route('admin.addproduct')}}">
+                                <i class="fa fa-plus"></i> Add Product
+                            </a></li>
+                        <li><a href="{{route('admin.viewproduct')}}">
+                                <i class="fa fa-list"></i> View Products
+                            </a></li>
                     </ul>
+                </li>
+                <li class="{{ request()->routeIs('admin.vieworders') ? 'active' : '' }}">
+                    <a href="{{route('admin.vieworders')}}">
+                        <i class="icon-list"></i> Orders
+                    </a>
+                </li>
+            </ul>
+
+            <span class="heading">Quick Actions</span>
+            <ul class="list-unstyled">
+                <li>
+                    <a href="{{route('index')}}" target="_blank">
+                        <i class="fa fa-external-link-alt"></i> View Website
+                    </a>
                 </li>
             </ul>
         </nav>
@@ -99,7 +281,20 @@
         <div class="page-content">
             <div class="page-header">
                 <div class="container-fluid">
-                    <h2 class="h5 no-margin-bottom">Dashboard</h2>
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div>
+                            <h2 class="h5 no-margin-bottom">@yield('page-title', 'Dashboard')</h2>
+                            <nav aria-label="breadcrumb">
+                                <ol class="breadcrumb">
+                                    <li class="breadcrumb-item"><a href="{{route('dashboard')}}">Dashboard</a></li>
+                                    @yield('breadcrumb')
+                                </ol>
+                            </nav>
+                        </div>
+                        <div class="page-actions">
+                            @yield('page-actions')
+                        </div>
+                    </div>
                 </div>
             </div>
             <section class="no-padding-top no-padding-bottom">
@@ -112,6 +307,10 @@
                 @yield('update_category')
 
                 @yield('add_product')
+
+                @yield('update_product')
+
+                @yield('view_product')
 
                 @yield('view_orders')
             </section>

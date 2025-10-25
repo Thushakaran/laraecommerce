@@ -1,5 +1,15 @@
 @extends('admin.maindesign')
 
+@section('page-title', 'View Categories')
+@section('breadcrumb')
+<li class="breadcrumb-item active">Categories</li>
+@endsection
+@section('page-actions')
+<a href="{{route('admin.addcategory')}}" class="btn-action btn-primary-action">
+    <i class="fa fa-plus"></i> Add Category
+</a>
+@endsection
+
 @section('view_category')
 @if(session('delete_message') )
 <div style="margin-bottom: 10px; color: black; background-color:orangered;padding: 12px 16px;">

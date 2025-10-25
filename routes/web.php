@@ -14,6 +14,11 @@ Route::get('/remove_cart_product/{id}',  [UserController::class, 'removeCartProd
 Route::post('/confirm_order',  [UserController::class, 'confirmOrder'])->middleware(['auth', 'verified'])->name('confirmorder');
 Route::get('/my_orders',  [UserController::class, 'myOrders'])->middleware(['auth', 'verified'])->name('myorders');
 
+Route::controller(UserController::class)->group(function () {
+    Route::get('stripe/{price}', 'stripe')->name('stripe');
+    Route::post('stripe', 'stripePost')->name('stripe.post');
+});
+
 Route::get('/dashboard', [UserController::class, 'index'])->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {

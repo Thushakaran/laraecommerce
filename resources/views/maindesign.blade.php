@@ -27,6 +27,125 @@
     <link href="frontend/css/style.css" rel="stylesheet" />
     <!-- responsive style -->
     <link href="frontend/css/responsive.css" rel="stylesheet" />
+
+    <!-- Custom Navigation Styles -->
+    <style>
+        .navbar-nav .nav-item {
+            margin: 0 10px;
+        }
+
+        .navbar-nav .nav-link {
+            color: #333 !important;
+            font-weight: 500;
+            padding: 10px 15px !important;
+            border-radius: 5px;
+            transition: all 0.3s ease;
+            background: none !important;
+            /* Remove background color including white */
+        }
+
+        .navbar-nav .nav-link:hover,
+        .navbar-nav .nav-item.active .nav-link {
+            color: white !important;
+            background: none !important;
+            /* Prevent any background color on hover or active */
+        }
+
+        .user_option {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .dropdown-toggle {
+            color: #333 !important;
+            text-decoration: none;
+            padding: 8px 15px;
+            border-radius: 5px;
+            transition: all 0.3s ease;
+            background: none !important;
+            /* Remove background color */
+        }
+
+        .dropdown-toggle:hover {
+            color: white !important;
+            background: none !important;
+        }
+
+        .dropdown-menu {
+            border: none;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            padding: 10px 0;
+        }
+
+        .dropdown-item {
+            padding: 8px 20px;
+            color: #333;
+            transition: all 0.3s ease;
+            background: none !important;
+            /* Remove background color */
+        }
+
+        .dropdown-item:hover {
+            color: #f7444e;
+            background: none !important;
+        }
+
+        .cart-link {
+            position: relative;
+            color: #333 !important;
+            text-decoration: none;
+            padding: 8px 15px;
+            border-radius: 5px;
+            transition: all 0.3s ease;
+            background: none !important;
+            /* Remove background color */
+        }
+
+        .cart-link:hover {
+            color: white !important;
+            background: none !important;
+        }
+
+        .cart-count {
+            position: absolute;
+            top: -5px;
+            right: -5px;
+            /* background-color: #f7444e;  Remove red background */
+            color: white;
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            font-size: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            background: none !important;
+            /* Remove any default background */
+            border: 1px solid #ccc;
+            /* Optionally add border for visibility */
+        }
+
+        .btn-sm {
+            padding: 6px 12px;
+            font-size: 14px;
+        }
+
+        @media (max-width: 768px) {
+            .user_option {
+                flex-direction: column;
+                gap: 10px;
+                margin-top: 15px;
+            }
+
+            .navbar-nav {
+                text-align: center;
+                margin-top: 20px;
+            }
+        }
+    </style>
 </head>
 
 <body>
@@ -44,60 +163,64 @@
                 </button>
 
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <ul class="navbar-nav  ">
-                        <li class="nav-item active">
-                            <a class="nav-link" href="frontend/index.html">Home <span class="sr-only">(current)</span></a>
+                    <ul class="navbar-nav">
+                        <li class="nav-item {{ request()->routeIs('index') ? 'active' : '' }}">
+                            <a class="nav-link" href="{{route('index')}}">
+                                <i class="fa fa-home"></i> Home
+                            </a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="frontend/shop.html">
-                                Shop
+                        <li class="nav-item {{ request()->routeIs('viewallproducts') ? 'active' : '' }}">
+                            <a class="nav-link" href="{{route('viewallproducts')}}">
+                                <i class="fa fa-shopping-bag"></i> Shop
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="frontend/why.html">
-                                Why Us
+                            <a class="nav-link" href="#contact">
+                                <i class="fa fa-envelope"></i> Contact
                             </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="frontend/testimonial.html">
-                                Testimonial
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="frontend/contact.html">Contact Us</a>
                         </li>
                     </ul>
                     <div class="user_option">
                         @if(Auth::check())
-                        <a href="{{route('dashboard')}}">
-                            <i class="fa fa-user" aria-hidden="true"></i>
-                            <span>
-                                Dashboard
-                            </span>
-                        </a>
+                        <div class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                <i class="fa fa-user"></i>
+                                <span>{{ Auth::user()->name }}</span>
+                            </a>
+                            <div class="dropdown-menu">
+                                <a class="dropdown-item" href="{{route('dashboard')}}">
+                                    <i class="fa fa-tachometer-alt"></i> Dashboard
+                                </a>
+                                <a class="dropdown-item" href="{{route('myorders')}}">
+                                    <i class="fa fa-list-alt"></i> My Orders
+                                </a>
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item" href="{{ route('logout') }}"
+                                    onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                                    <i class="fa fa-sign-out-alt"></i> Logout
+                                </a>
+                            </div>
+                        </div>
                         @else
-                        <a href="{{route('login')}}">
-                            <i class="fa fa-user" aria-hidden="true"></i>
-                            <span>
-                                Login
-                            </span>
+                        <a href="{{route('login')}}" class="px-3 py-1 rounded text-primary mr-2 login-link" style="transition:0.2s;">
+                            <i class="fa fa-sign-in-alt"></i> Login
                         </a>
-                        <a href="{{route('register')}}">
-                            <i class="fa fa-user" aria-hidden="true"></i>
-                            <span>
-                                Sign up
-                            </span>
+                        <a href="{{route('register')}}" class="px-3 py-1 rounded text-primary register-link" style="transition:0.2s;">
+                            <i class="fa fa-user-plus"></i> Sign Up
                         </a>
                         @endif
-                        <a href="{{route('cardproducts')}}">
-                            <i class="fa fa-shopping-bag" aria-hidden="true">{{$count}}</i>
+
+                        <a href="{{route('cardproducts')}}" class="cart-link">
+                            <i class="fa fa-shopping-cart"></i>
+                            <span class="cart-count">{{$count}}</span>
                         </a>
-                        <form class="form-inline ">
-                            <button class="btn nav_search-btn" type="submit">
-                                <i class="fa fa-search" aria-hidden="true"></i>
-                            </button>
-                        </form>
                     </div>
+
+                    @if(Auth::check())
+                    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                        @csrf
+                    </form>
+                    @endif
                 </div>
             </nav>
         </header>
@@ -151,6 +274,7 @@
         @yield('product_details')
         @yield('allproducts')
         @yield('view_cart_products')
+        @yield('stripe')
     </section>
 
     <!-- end shop section -->
@@ -181,21 +305,22 @@
                     </div>
                 </div>
                 <div class="col-md-6 col-lg-5 px-0">
-                    <form action="#">
+                    <form action="{{ route('index') }}" method="POST">
+                        @csrf
                         <div>
-                            <input type="text" placeholder="Name" />
+                            <input type="text" name="name" placeholder="Name" required />
                         </div>
                         <div>
-                            <input type="email" placeholder="Email" />
+                            <input type="email" name="email" placeholder="Email" required />
                         </div>
                         <div>
-                            <input type="text" placeholder="Phone" />
+                            <input type="text" name="phone" placeholder="Phone" required />
                         </div>
                         <div>
-                            <input type="text" class="message-box" placeholder="Message" />
+                            <input type="text" name="message" class="message-box" placeholder="Message" required />
                         </div>
                         <div class="d-flex ">
-                            <button>
+                            <button type="submit">
                                 SEND
                             </button>
                         </div>
@@ -305,6 +430,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js">
     </script>
     <script src="frontend/js/custom.js"></script>
+
 
 </body>
 
